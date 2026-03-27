@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Hono Todo</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🔥 Hono Todo</h1>
+
+    <!-- 追加フォーム -->
+    <form action="/" method="POST">
+      <input type="text" name="title" placeholder="新しいTodoを入力..." required />
+      <button type="submit">追加</button>
+    </form>
+
+    <!-- 一覧 -->
+    <ul>
+      <% todos.forEach(todo => { %>
+        <li class="<%= todo.completed ? 'completed' : '' %>">
+          <span><%= todo.title %></span>
+          <div class="actions">
+
+            <!-- 完了トグル -->
+            <form action="/<%= todo.id %>/toggle" method="POST" style="display:inline">
+              <button type="submit">
+                <%= todo.completed ? '↩ 戻す' : '✓ 完了' %>
+              </button>
+            </form>
+
+            <!-- 削除 -->
+            <form action="/<%= todo.id %>/delete" method="POST" style="display:inline">
+              <button type="submit" class="delete">✕</button>
+            </form>
+
+          </div>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+</body>
+</html>
